@@ -1,7 +1,7 @@
 package com.ggalantecode.restcalculator.service;
 
-import com.ggalantecode.restcalculator.dto.ArithmeticOperationInputData;
-import com.ggalantecode.restcalculator.dto.ArithmeticOperationResultData;
+import com.ggalantecode.restcalculator.dto.ArithmeticOperationInput;
+import com.ggalantecode.restcalculator.dto.ArithmeticOperationResult;
 import com.ggalantecode.restcalculator.strategy.ArithmeticOperation;
 import org.springframework.stereotype.Service;
 
@@ -16,10 +16,10 @@ public class CalculationServiceImpl implements CalculationService {
     }
 
     @Override
-    public ArithmeticOperationResultData calculateOperation(ArithmeticOperationInputData inputData) {
+    public ArithmeticOperationResult calculateOperation(ArithmeticOperationInput inputData) {
         double firstNumber = inputData.firstNumber();
         double secondNumber = inputData.secondNumber();
         double result = arithmeticOperation.calculate(firstNumber, secondNumber);
-        return new ArithmeticOperationResultData(result);
+        return new ArithmeticOperationResult(result);
     }
 }

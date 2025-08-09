@@ -1,7 +1,7 @@
 package com.ggalantecode.restcalculator.service;
 
-import com.ggalantecode.restcalculator.dto.ArithmeticOperationInputData;
-import com.ggalantecode.restcalculator.dto.ArithmeticOperationResultData;
+import com.ggalantecode.restcalculator.dto.ArithmeticOperationInput;
+import com.ggalantecode.restcalculator.dto.ArithmeticOperationResult;
 import com.ggalantecode.restcalculator.strategy.Addition;
 import com.ggalantecode.restcalculator.strategy.Division;
 import com.ggalantecode.restcalculator.strategy.Multiplication;
@@ -17,47 +17,47 @@ class CalculationServiceImplTest {
     @Test
     void givenAdditionAndInputDataWithOneAndTwo_whenCalculateOperation_thenReturnResultDataWithThree() {
         calculationService.setArithmeticOperation(new Addition());
-        ArithmeticOperationInputData input = new ArithmeticOperationInputData(1d, 2d, null);
-        ArithmeticOperationResultData result = calculationService.calculateOperation(input);
+        ArithmeticOperationInput input = new ArithmeticOperationInput(1d, 2d, null);
+        ArithmeticOperationResult result = calculationService.calculateOperation(input);
         assertEquals(3d, result.calculationResult());
     }
 
     @Test
     void givenSubtractionAndInputDataWithOneAndTwo_whenCalculateOperation_thenReturnResultDataWithNegativeOne() {
         calculationService.setArithmeticOperation(new Subtraction());
-        ArithmeticOperationInputData input = new ArithmeticOperationInputData(1d, 2d, null);
-        ArithmeticOperationResultData result = calculationService.calculateOperation(input);
+        ArithmeticOperationInput input = new ArithmeticOperationInput(1d, 2d, null);
+        ArithmeticOperationResult result = calculationService.calculateOperation(input);
         assertEquals(-1d, result.calculationResult());
     }
 
     @Test
     void givenMultiplicationAndInputDataWithOneAndTwo_whenCalculateOperation_thenReturnResultDataWithTwo() {
         calculationService.setArithmeticOperation(new Multiplication());
-        ArithmeticOperationInputData input = new ArithmeticOperationInputData(1d, 2d, null);
-        ArithmeticOperationResultData result = calculationService.calculateOperation(input);
+        ArithmeticOperationInput input = new ArithmeticOperationInput(1d, 2d, null);
+        ArithmeticOperationResult result = calculationService.calculateOperation(input);
         assertEquals(2d, result.calculationResult());
     }
 
     @Test
     void givenMultiplicationAndInputDataWithTwoAndThree_whenCalculateOperation_thenReturnResultDataWithSix() {
         calculationService.setArithmeticOperation(new Multiplication());
-        ArithmeticOperationInputData input = new ArithmeticOperationInputData(2d, 3d, null);
-        ArithmeticOperationResultData result = calculationService.calculateOperation(input);
+        ArithmeticOperationInput input = new ArithmeticOperationInput(2d, 3d, null);
+        ArithmeticOperationResult result = calculationService.calculateOperation(input);
         assertEquals(6d, result.calculationResult());
     }
 
     @Test
     void givenDivisionAndInputDataWithOneAndTwo_whenCalculateOperation_thenReturnResultDataWithZeroPointFive() {
         calculationService.setArithmeticOperation(new Division());
-        ArithmeticOperationInputData input = new ArithmeticOperationInputData(1d, 2d, null);
-        ArithmeticOperationResultData result = calculationService.calculateOperation(input);
+        ArithmeticOperationInput input = new ArithmeticOperationInput(1d, 2d, null);
+        ArithmeticOperationResult result = calculationService.calculateOperation(input);
         assertEquals(.5d, result.calculationResult());
     }
 
     @Test
     void givenNoArithmeticOperationAndInputData_whenCalculateOperation_thenThrowNullPointerException() {
         calculationService.setArithmeticOperation(null);
-        ArithmeticOperationInputData input = new ArithmeticOperationInputData(1d, 2d, null);
+        ArithmeticOperationInput input = new ArithmeticOperationInput(1d, 2d, null);
         assertThrows(NullPointerException.class, () -> calculationService.calculateOperation(input));
     }
 
