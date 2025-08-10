@@ -1,11 +1,7 @@
 package com.ggalantecode.restcalculator.service;
 
-import com.ggalantecode.restcalculator.dto.ArithmeticOperationInput;
-import com.ggalantecode.restcalculator.dto.ArithmeticOperationResult;
-import com.ggalantecode.restcalculator.strategy.Addition;
-import com.ggalantecode.restcalculator.strategy.Division;
-import com.ggalantecode.restcalculator.strategy.Multiplication;
-import com.ggalantecode.restcalculator.strategy.Subtraction;
+import com.ggalantecode.restcalculator.dto.*;
+import com.ggalantecode.restcalculator.strategy.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
