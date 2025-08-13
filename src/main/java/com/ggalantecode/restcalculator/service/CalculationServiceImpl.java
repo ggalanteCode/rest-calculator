@@ -7,18 +7,16 @@ import org.springframework.stereotype.Service;
 @Service
 public class CalculationServiceImpl implements CalculationService {
 
-    private ArithmeticOperation arithmeticOperation;
-
     @Override
-    public void setArithmeticOperation(ArithmeticOperation operation) {
-        arithmeticOperation = operation;
-    }
-
-    @Override
-    public ArithmeticOperationResult calculateOperation(ArithmeticOperationInput inputData) {
-        double firstNumber = inputData.firstNumber();
-        double secondNumber = inputData.secondNumber();
-        double result = arithmeticOperation.calculate(firstNumber, secondNumber);
+    public ArithmeticOperationResult selectOperationAndCalculate(ArithmeticOperationInput inputData) {
+        ArithmeticOperation arithmeticOperation = selectOperationFromInput(inputData.operation());
+        double result = arithmeticOperation.calculate(inputData.firstNumber(), inputData.secondNumber());
         return new ArithmeticOperationResult(result);
     }
+
+    private ArithmeticOperation selectOperationFromInput(String requestedOperation) {
+        String requestedOperationUppercase = requestedOperation.toUpperCase();
+        return ArithmeticOperation.valueOf(requestedOperationUppercase.trim());
+    }
+
 }

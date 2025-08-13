@@ -1,7 +1,6 @@
 package com.ggalantecode.restcalculator.service;
 
 import com.ggalantecode.restcalculator.dto.*;
-import com.ggalantecode.restcalculator.strategy.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -11,80 +10,116 @@ class CalculationServiceImplTest {
     private final CalculationService calculationService = new CalculationServiceImpl();
 
     @Test
-    void givenAdditionAndInputDataWithOneAndTwo_whenCalculateOperation_thenReturnResultDataWithThree() {
-        calculationService.setArithmeticOperation(new Addition());
+    void givenInputDataWithOneAndTwoAndAdditionUppercase_whenCalculateOperation_thenReturnResultDataWithThree() {
+        ArithmeticOperationInput input = new ArithmeticOperationInput(1d, 2d, "ADDITION");
+        double expectedValue = input.firstNumber() + input.secondNumber();
+        ArithmeticOperationResult actualResult = calculationService.selectOperationAndCalculate(input);
+        assertEquals(expectedValue, actualResult.calculationResult());
+    }
+
+    @Test
+    void givenInputDataWithOneAndTwoAndAdditionLowercase_whenCalculateOperation_thenReturnResultDataWithThree() {
+        ArithmeticOperationInput input = new ArithmeticOperationInput(1d, 2d, "addition");
+        double expectedValue = input.firstNumber() + input.secondNumber();
+        ArithmeticOperationResult actualResult = calculationService.selectOperationAndCalculate(input);
+        assertEquals(expectedValue, actualResult.calculationResult());
+    }
+
+    @Test
+    void givenInputDataWithOneAndTwoAndSubtractionUppercase_whenCalculateOperation_thenReturnResultDataWithNegativeOne() {
+        ArithmeticOperationInput input = new ArithmeticOperationInput(1d, 2d, "SUBTRACTION");
+        double expectedValue = input.firstNumber() - input.secondNumber();
+        ArithmeticOperationResult actualResult = calculationService.selectOperationAndCalculate(input);
+        assertEquals(expectedValue, actualResult.calculationResult());
+    }
+
+    @Test
+    void givenInputDataWithOneAndTwoAndSubtractionLowercase_whenCalculateOperation_thenReturnResultDataWithNegativeOne() {
+        ArithmeticOperationInput input = new ArithmeticOperationInput(1d, 2d, "subtraction");
+        double expectedValue = input.firstNumber() - input.secondNumber();
+        ArithmeticOperationResult actualResult = calculationService.selectOperationAndCalculate(input);
+        assertEquals(expectedValue, actualResult.calculationResult());
+    }
+
+    @Test
+    void givenInputDataWithOneAndTwoAndMultiplicationUppercase_whenCalculateOperation_thenReturnResultDataWithTwo() {
+        ArithmeticOperationInput input = new ArithmeticOperationInput(1d, 2d, "MULTIPLICATION");
+        double expectedValue = input.firstNumber() * input.secondNumber();
+        ArithmeticOperationResult actualResult = calculationService.selectOperationAndCalculate(input);
+        assertEquals(expectedValue, actualResult.calculationResult());
+    }
+
+    @Test
+    void givenInputDataWithOneAndTwoAndMultiplicationLowercase_whenCalculateOperation_thenReturnResultDataWithTwo() {
+        ArithmeticOperationInput input = new ArithmeticOperationInput(1d, 2d, "multiplication");
+        double expectedValue = input.firstNumber() * input.secondNumber();
+        ArithmeticOperationResult actualResult = calculationService.selectOperationAndCalculate(input);
+        assertEquals(expectedValue, actualResult.calculationResult());
+    }
+
+    @Test
+    void givenInputDataWithTwoAndThreeAndMultiplicationUppercase_whenCalculateOperation_thenReturnResultDataWithSix() {
+        ArithmeticOperationInput input = new ArithmeticOperationInput(2d, 3d, "MULTIPLICATION");
+        double expectedValue = input.firstNumber() * input.secondNumber();
+        ArithmeticOperationResult actualResult = calculationService.selectOperationAndCalculate(input);
+        assertEquals(expectedValue, actualResult.calculationResult());
+    }
+
+    @Test
+    void givenInputDataWithOneAndTwoAndDivisionUppercase_whenCalculateOperation_thenReturnResultDataWithZeroPointFive() {
+        ArithmeticOperationInput input = new ArithmeticOperationInput(1d, 2d, "DIVISION");
+        double expectedValue = input.firstNumber() / input.secondNumber();
+        ArithmeticOperationResult actualResult = calculationService.selectOperationAndCalculate(input);
+        assertEquals(expectedValue, actualResult.calculationResult());
+    }
+
+    @Test
+    void givenInputDataWithOneAndTwoAndDivisionLowercase_whenCalculateOperation_thenReturnResultDataWithZeroPointFive() {
+        ArithmeticOperationInput input = new ArithmeticOperationInput(1d, 2d, "division");
+        double expectedValue = input.firstNumber() / input.secondNumber();
+        ArithmeticOperationResult actualResult = calculationService.selectOperationAndCalculate(input);
+        assertEquals(expectedValue, actualResult.calculationResult());
+    }
+
+    @Test
+    void givenInputDataWithOneAndTwoAndUnknownOperation_whenCalculateOperation_thenThrowIllegalArgumentException() {
+        ArithmeticOperationInput input = new ArithmeticOperationInput(1d, 2d, "");
+        assertThrows(IllegalArgumentException.class, () -> calculationService.selectOperationAndCalculate(input));
+    }
+
+    @Test
+    void givenInputDataAndNoArithmeticOperation_whenCalculateOperation_thenThrowNullPointerException() {
         ArithmeticOperationInput input = new ArithmeticOperationInput(1d, 2d, null);
-        ArithmeticOperationResult result = calculationService.calculateOperation(input);
-        assertEquals(3d, result.calculationResult());
+        assertThrows(NullPointerException.class, () -> calculationService.selectOperationAndCalculate(input));
     }
 
     @Test
-    void givenSubtractionAndInputDataWithOneAndTwo_whenCalculateOperation_thenReturnResultDataWithNegativeOne() {
-        calculationService.setArithmeticOperation(new Subtraction());
-        ArithmeticOperationInput input = new ArithmeticOperationInput(1d, 2d, null);
-        ArithmeticOperationResult result = calculationService.calculateOperation(input);
-        assertEquals(-1d, result.calculationResult());
+    void givenNoInputData_whenCalculateOperation_thenThrowNullPointerException() {
+        assertThrows(NullPointerException.class, () -> calculationService.selectOperationAndCalculate(null));
     }
 
     @Test
-    void givenMultiplicationAndInputDataWithOneAndTwo_whenCalculateOperation_thenReturnResultDataWithTwo() {
-        calculationService.setArithmeticOperation(new Multiplication());
-        ArithmeticOperationInput input = new ArithmeticOperationInput(1d, 2d, null);
-        ArithmeticOperationResult result = calculationService.calculateOperation(input);
-        assertEquals(2d, result.calculationResult());
+    void givenInputDataWithOneAndTwoAndOperationWithLeadingWhitespaces_whenCalculateOperation_thenReturnThree() {
+        ArithmeticOperationInput input = new ArithmeticOperationInput(1d, 2d, " ADDITION");
+        double expectedValue = input.firstNumber() + input.secondNumber();
+        ArithmeticOperationResult actualResult = calculationService.selectOperationAndCalculate(input);
+        assertEquals(expectedValue, actualResult.calculationResult());
     }
 
     @Test
-    void givenMultiplicationAndInputDataWithTwoAndThree_whenCalculateOperation_thenReturnResultDataWithSix() {
-        calculationService.setArithmeticOperation(new Multiplication());
-        ArithmeticOperationInput input = new ArithmeticOperationInput(2d, 3d, null);
-        ArithmeticOperationResult result = calculationService.calculateOperation(input);
-        assertEquals(6d, result.calculationResult());
+    void givenInputDataWithOneAndTwoAndOperationWithTrailingWhitespaces_whenCalculateOperation_thenReturnThree() {
+        ArithmeticOperationInput input = new ArithmeticOperationInput(1d, 2d, "ADDITION ");
+        double expectedValue = input.firstNumber() + input.secondNumber();
+        ArithmeticOperationResult actualResult = calculationService.selectOperationAndCalculate(input);
+        assertEquals(expectedValue, actualResult.calculationResult());
     }
 
     @Test
-    void givenDivisionAndInputDataWithOneAndTwo_whenCalculateOperation_thenReturnResultDataWithZeroPointFive() {
-        calculationService.setArithmeticOperation(new Division());
-        ArithmeticOperationInput input = new ArithmeticOperationInput(1d, 2d, null);
-        ArithmeticOperationResult result = calculationService.calculateOperation(input);
-        assertEquals(.5d, result.calculationResult());
-    }
-
-    @Test
-    void givenNoArithmeticOperationAndInputData_whenCalculateOperation_thenThrowNullPointerException() {
-        calculationService.setArithmeticOperation(null);
-        ArithmeticOperationInput input = new ArithmeticOperationInput(1d, 2d, null);
-        assertThrows(NullPointerException.class, () -> calculationService.calculateOperation(input));
-    }
-
-    @Test
-    void givenNoArithmeticOperationAndNoInputData_whenCalculateOperation_thenThrowNullPointerException() {
-        calculationService.setArithmeticOperation(null);
-        assertThrows(NullPointerException.class, () -> calculationService.calculateOperation(null));
-    }
-
-    @Test
-    void givenAdditionAndNoInputData_whenCalculateOperation_thenThrowNullPointerException() {
-        calculationService.setArithmeticOperation(new Addition());
-        assertThrows(NullPointerException.class, () -> calculationService.calculateOperation(null));
-    }
-
-    @Test
-    void givenSubtractionAndNoInputData_whenCalculateOperation_thenThrowNullPointerException() {
-        calculationService.setArithmeticOperation(new Subtraction());
-        assertThrows(NullPointerException.class, () -> calculationService.calculateOperation(null));
-    }
-
-    @Test
-    void givenMultiplicationAndNoInputData_whenCalculateOperation_thenThrowNullPointerException() {
-        calculationService.setArithmeticOperation(new Multiplication());
-        assertThrows(NullPointerException.class, () -> calculationService.calculateOperation(null));
-    }
-
-    @Test
-    void givenDivisionAndNoInputData_whenCalculateOperation_thenThrowNullPointerException() {
-        calculationService.setArithmeticOperation(new Division());
-        assertThrows(NullPointerException.class, () -> calculationService.calculateOperation(null));
+    void givenInputDataWithOneAndTwoAndOperationWithLeadingAndTrailingWhitespaces_whenCalculateOperation_thenReturnThree() {
+        ArithmeticOperationInput input = new ArithmeticOperationInput(1d, 2d, " ADDITION ");
+        double expectedValue = input.firstNumber() + input.secondNumber();
+        ArithmeticOperationResult actualResult = calculationService.selectOperationAndCalculate(input);
+        assertEquals(expectedValue, actualResult.calculationResult());
     }
 
 }
