@@ -2,7 +2,6 @@ package com.ggalantecode.restcalculator.controller;
 
 import com.ggalantecode.restcalculator.dto.*;
 import com.ggalantecode.restcalculator.service.CalculationService;
-import com.ggalantecode.restcalculator.strategy.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,29 +15,25 @@ public class CalculationController {
     @PostMapping("/addition")
     @ResponseBody
     public ArithmeticOperationResult requestAddition(@RequestBody ArithmeticOperationInput inputData) {
-        operationService.setArithmeticOperation(new Addition());
-        return operationService.calculateOperation(inputData);
+        return operationService.selectOperationAndCalculate(inputData);
     }
 
     @PostMapping("/subtraction")
     @ResponseBody
     public ArithmeticOperationResult requestSubtraction(@RequestBody ArithmeticOperationInput inputData) {
-        operationService.setArithmeticOperation(new Subtraction());
-        return operationService.calculateOperation(inputData);
+        return operationService.selectOperationAndCalculate(inputData);
     }
 
     @PostMapping("/multiplication")
     @ResponseBody
     public ArithmeticOperationResult requestMultiplication(@RequestBody ArithmeticOperationInput inputData) {
-        operationService.setArithmeticOperation(new Multiplication());
-        return operationService.calculateOperation(inputData);
+        return operationService.selectOperationAndCalculate(inputData);
     }
 
     @PostMapping("/division")
     @ResponseBody
     public ArithmeticOperationResult requestDivision(@RequestBody ArithmeticOperationInput inputData) {
-        operationService.setArithmeticOperation(new Division());
-        return operationService.calculateOperation(inputData);
+        return operationService.selectOperationAndCalculate(inputData);
     }
 
 }
