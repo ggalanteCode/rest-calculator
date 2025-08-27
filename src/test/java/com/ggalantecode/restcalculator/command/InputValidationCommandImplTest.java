@@ -3,6 +3,7 @@ package com.ggalantecode.restcalculator.command;
 import com.ggalantecode.restcalculator.dto.ArithmeticOperationInput;
 import com.ggalantecode.restcalculator.dto.ArithmeticOperationResult;
 import com.ggalantecode.restcalculator.exceptions.DivisionByZeroException;
+import com.ggalantecode.restcalculator.service.CalculationService;
 import com.ggalantecode.restcalculator.service.CalculationServiceImpl;
 import org.junit.jupiter.api.Test;
 
@@ -13,8 +14,8 @@ class InputValidationCommandImplTest {
     private final InputValidationCommand inputValidationCommand;
 
     public InputValidationCommandImplTest() {
-        inputValidationCommand = new InputValidationCommandImpl();
-        inputValidationCommand.setCalculationService(new CalculationServiceImpl());
+        CalculationService calculationService = new CalculationServiceImpl();
+        inputValidationCommand = new InputValidationCommandImpl(calculationService);
     }
 
     @Test

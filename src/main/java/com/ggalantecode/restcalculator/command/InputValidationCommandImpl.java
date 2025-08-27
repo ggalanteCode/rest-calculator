@@ -11,8 +11,7 @@ public class InputValidationCommandImpl implements InputValidationCommand {
 
     private CalculationService calculationService;
 
-    @Override
-    public void setCalculationService(CalculationService service) {
+    public InputValidationCommandImpl(CalculationService service) {
         calculationService = service;
     }
 
