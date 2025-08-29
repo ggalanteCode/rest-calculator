@@ -4,13 +4,17 @@ import com.ggalantecode.restcalculator.dto.*;
 import com.ggalantecode.restcalculator.exceptions.DivisionByZeroException;
 import com.ggalantecode.restcalculator.service.CalculationService;
 import com.ggalantecode.restcalculator.strategy.ArithmeticOperation;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import static com.ggalantecode.restcalculator.strategy.ArithmeticOperation.DIVISION;
 
+@Component
 public class InputValidationCommandImpl implements InputValidationCommand {
 
     private CalculationService calculationService;
 
+    @Autowired
     public InputValidationCommandImpl(CalculationService service) {
         calculationService = service;
     }
