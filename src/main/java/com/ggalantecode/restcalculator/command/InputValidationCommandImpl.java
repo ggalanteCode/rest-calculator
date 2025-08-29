@@ -23,15 +23,19 @@ public class InputValidationCommandImpl implements InputValidationCommand {
 
     private void validateInput(ArithmeticOperationInput input) {
         ArithmeticOperation arithmeticOperation = getArithmeticOperationForValidation(input);
-        if (isDivisionByZero(arithmeticOperation, input.secondNumber())) {
-            throw new DivisionByZeroException("error! division by zero");
-        }
+        checkDivisionByZero(arithmeticOperation, input.secondNumber());
     }
 
     private ArithmeticOperation getArithmeticOperationForValidation(ArithmeticOperationInput input) {
         String requestedOperation = input.operation();
         String requestedOperationUppercase = requestedOperation.toUpperCase().trim();
         return ArithmeticOperation.valueOf(requestedOperationUppercase);
+    }
+
+    private void checkDivisionByZero(ArithmeticOperation requestedOperation, double secondNumber) {
+        if (isDivisionByZero(requestedOperation, secondNumber)) {
+            throw new DivisionByZeroException("error! division by zero");
+        }
     }
 
     private boolean isDivisionByZero(ArithmeticOperation requestedOperation, double secondNumber) {
