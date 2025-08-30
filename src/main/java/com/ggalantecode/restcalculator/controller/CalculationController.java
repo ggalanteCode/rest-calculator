@@ -2,6 +2,7 @@ package com.ggalantecode.restcalculator.controller;
 
 import com.ggalantecode.restcalculator.command.InputValidationCommand;
 import com.ggalantecode.restcalculator.dto.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -10,6 +11,7 @@ public class CalculationController {
 
     private InputValidationCommand inputValidationCommand;
 
+    @Autowired
     public CalculationController(InputValidationCommand command) {
         inputValidationCommand = command;
     }
