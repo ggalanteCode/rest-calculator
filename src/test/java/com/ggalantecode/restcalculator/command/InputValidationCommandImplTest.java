@@ -1,10 +1,8 @@
 package com.ggalantecode.restcalculator.command;
 
-import com.ggalantecode.restcalculator.dto.ArithmeticOperationInput;
-import com.ggalantecode.restcalculator.dto.ArithmeticOperationResult;
+import com.ggalantecode.restcalculator.dto.*;
 import com.ggalantecode.restcalculator.exceptions.DivisionByZeroException;
-import com.ggalantecode.restcalculator.service.CalculationService;
-import com.ggalantecode.restcalculator.service.CalculationServiceImpl;
+import com.ggalantecode.restcalculator.service.*;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
