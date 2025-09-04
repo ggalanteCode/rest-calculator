@@ -26,14 +26,12 @@ public class InputValidationCommandImpl implements InputValidationCommand {
     }
 
     private void validateInput(ArithmeticOperationInput input) {
-        ArithmeticOperation arithmeticOperation = getArithmeticOperationForValidation(input);
+        ArithmeticOperation arithmeticOperation = getArithmeticOperationForValidation(input.operation());
         checkDivisionByZero(arithmeticOperation, input.secondNumber());
     }
 
-    private ArithmeticOperation getArithmeticOperationForValidation(ArithmeticOperationInput input) {
-        String requestedOperation = input.operation();
-        String requestedOperationUppercase = requestedOperation.toUpperCase().trim();
-        return ArithmeticOperation.valueOf(requestedOperationUppercase);
+    private ArithmeticOperation getArithmeticOperationForValidation(String requestedOperation) {
+        return ArithmeticOperation.valueOf(requestedOperation.toUpperCase().trim());
     }
 
     private void checkDivisionByZero(ArithmeticOperation requestedOperation, double secondNumber) {
