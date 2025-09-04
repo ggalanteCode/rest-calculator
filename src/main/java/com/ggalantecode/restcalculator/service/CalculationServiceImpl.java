@@ -15,8 +15,7 @@ public class CalculationServiceImpl implements CalculationService {
     }
 
     private ArithmeticOperation selectOperationFromInput(String requestedOperation) {
-        String requestedOperationUppercase = requestedOperation.toUpperCase();
-        return ArithmeticOperation.valueOf(requestedOperationUppercase.trim());
+        return ArithmeticOperation.valueOf(requestedOperation.toUpperCase().trim());
     }
 
 }
