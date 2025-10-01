@@ -4,6 +4,6 @@ import com.ggalantecode.restcalculator.dto.*;
 
 public interface InputValidationCommand {
 
-    ArithmeticOperationResult validateAndSendInputForCalculation(ArithmeticOperationInput inputData);
+    ArithmeticOperationResult validateInputForCalculation(ArithmeticOperationInput inputData);
 
 }

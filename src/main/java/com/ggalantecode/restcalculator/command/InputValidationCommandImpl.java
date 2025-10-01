@@ -20,7 +20,7 @@ public class InputValidationCommandImpl implements InputValidationCommand {
     }
 
     @Override
-    public ArithmeticOperationResult validateAndSendInputForCalculation(ArithmeticOperationInput inputData) {
+    public ArithmeticOperationResult validateInputForCalculation(ArithmeticOperationInput inputData) {
         validateInput(inputData);
         return calculationService.selectOperationAndCalculate(inputData);
     }

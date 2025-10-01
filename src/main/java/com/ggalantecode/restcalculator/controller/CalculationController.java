@@ -19,7 +19,7 @@ public class CalculationController {
     @PostMapping
     @ResponseBody
     public ArithmeticOperationResult requestCalculation(@RequestBody ArithmeticOperationInput input) {
-        return inputValidationCommand.validateAndSendInputForCalculation(input);
+        return inputValidationCommand.validateInputForCalculation(input);
     }
 
 }
